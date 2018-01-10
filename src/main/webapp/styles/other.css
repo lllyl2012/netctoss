@@ -1,0 +1,12 @@
+div.error_msg2
+{
+    color:Red;
+    background-image:url("../images/wrong.gif") ;
+    background-repeat:no-repeat;
+    background-position:left center;
+    border:1px solid red;
+    padding-left: 17px;
+    position:relative;
+    left:20px;
+    top:-31px;
+}

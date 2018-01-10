@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.netctoss.mapper.CostMapper">
+	<select id="findAll" resultType="cn.tedu.netctoss.entity.Cost">
+		SELECT
+			 * 
+	  FROM
+	  	 cost 
+	  ORDER BY
+	  	 cost_id;
+	</select>
+	<update id="updateStatusCostById" parameterType="cn.tedu.netctoss.entity.page.Page">
+		UPDATE
+			cost
+		SET 
+			status = #{status},
+	<if test="status != '1'">startime = now()</if>
+		WHERE
+			cost_id = #{cost_id}
+	</update>
+	<select id="findRows" parameterType="cn.tedu.netctoss.entity.page.Page" resultType="java.lang.Integer">
+		SELECT 
+			count(*)
+	  FROM
+	    cost 
+	  LIMIT
+	  	#{begin},#{pageSize}
+	</select>
+	<select id="findCostById" resultType="cn.tedu.netctoss.entity.Cost">
+		SELECT
+			*
+		FROM
+			cost
+		WHERE
+			cost_id = #{cost_id}
+	</select>
+	<insert id="insertCost" parameterType="cn.tedu.netctoss.entity.Cost">
+		INSERT INTO
+			cost(		
+				cost_id,name,base_duration,base_cost,unit_cost,status,descr,creatime,cost_type
+			)
+		VALUES(
+			null,#{name},#{base_duration},#{base_cost},#{unit_cost},
+			"1",#{descr},now(),#{cost_type}
+		)
+	</insert>
+	<update id="updateCost" parameterType="cn.tedu.netctoss.entity.Cost">
+		UPDATE 
+			cost
+		SET
+			name = #{name},
+			base_duration = #{base_duration},
+			base_cost = #{base_cost},
+			unit_cost = #{unit_cost},
+			descr = #{descr},
+			cost_type = #{cost_type}
+		WHERE
+			cost_id = #{cost_id}
+	</update>
+</mapper>
